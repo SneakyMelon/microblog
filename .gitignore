@@ -16,6 +16,6 @@ run
 tmp/
 __pycache__/
 .git
-.env
+env
 
 
