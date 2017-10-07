@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block header %}
+<header class="bg-primary text-white">
+  <div class="container text-center">
+    <h1>Welcome {{ options.users[1].name }}</h1>
+    <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<section id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2>Sign In</h2>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }} </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        
+        <form action="" method="post" name="login">
+          {{ form.hidden_tag() }}
+          <p>
+            Please enter your OpenID:<br>
+            {{ form.openid(size=80) }}<br>
+            {% for error in form.openid.errors %}
+              <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+          </p>
+          <p>{{ form.remember_me }} Remember Me</p>
+          <p><input type="submit" value="Sign In"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<script defer type="text/javascript">
+    function set_openid(id, provider)
+    {
+
+      u = id.search("<username>");
+
+      if (u != -1){
+
+        user = promt("Enter your " + provider + "username to continue:")
+        id = id.substr(0, u) + user;
+      }
+
+      form = $("form #openid")[0]
+      form.value = id
+    }
+</script>
+{% endblock %}

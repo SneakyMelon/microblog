@@ -1,0 +1,21 @@
+# Ignore Files and Folders
+#
+# 07-10-2017 11:22am
+
+# Python Modules
+flask/
+
+# Vendor Ignores
+app/static/vendor/*
+
+# Editor Ignores
+.vscode
+
+# Other Ignores
+run
+tmp/
+__pycache__/
+.git
+.env
+
+
