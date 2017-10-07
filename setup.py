@@ -9,7 +9,7 @@ setup(
     name                 = 'Microblog',
     packages             = find_packages(exclude=('sample','tests', 'docs', 'tmp')),
     version              = '0.0.1',
-    license              = 'GNU',
+    license              = 'GPL-3.0',
     description          = 'Build a microlog using Pythongs Flask',
     long_description     = 'Flask Web Application building a microblog using Python. Full documentation available here: https://github.com/sneakymelon/microblog',
     author               = 'Allan Davidson',
