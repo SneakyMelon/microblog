@@ -1,4 +1,5 @@
 flask
+flask-cache
 flask-login
 flask-openid
 flask-mail
