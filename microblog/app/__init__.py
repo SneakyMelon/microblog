@@ -1,7 +1,9 @@
-#from flask import Flask
-from flask import *
+"""
+from flask import Flask
+"""
 
-app = Flask(__name__)
-app.config.from_object('config')
-
+from flask import Flask
 from app import views
+
+APP = Flask(__name__)
+APP.config.from_object('config')
