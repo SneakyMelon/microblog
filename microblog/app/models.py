@@ -1,31 +1,40 @@
-from flask import render_template, flash, redirect
-from app import app
-from .forms import LoginForm
-from options import opt
+"""
+Models and Database management.
+"""
 
 
-
-@app.route('/')
-@app.route('/index')
-
-def index(options = opt()):
-	return render_template('index.html', options = options)
-
-@app.route('/login', methods=['GET', 'POST'])
-
-def login(options = opt()):
-	form = LoginForm()
-
-	if form.validate_on_submit():
-		# Get Form data by using the format:
-		# 	form.<form_object_id>.data
-
-		flash('Login Requested for OpenID_%s and Remember_token_%s' % 
-			(form.openid.data, str(form.remember_me.data)))
-		return redirect('/index?logged_in')
-	return render_template('login.html', 
-							options = options,
-							form = form,
-							providers = app.config['PROVIDERS'])
+from app import db
 
 
+class User(db.Model):
+    """
+    Create a new user for storing in the database.
+
+    ```Example Queries```::
+
+        users = models.User.query.all() # Get all users
+        users = models.User.query.get(id_of_user)
+        users = models.User.query.order_by('nickname desc').all()
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    nickname = db.Column(db.String(64), index=True, unique=True)
+    email = db.Column(db.String(120), index=True, unique=True)
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
+
+    def __repr__(self):
+        return '<User %r>' % self.nickname
+
+
+class Post(db.Model):
+    """
+    Creates a new Post, created by a User.
+
+    :Relationship: Post *..1 User
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Post %r>' % (self.body)
