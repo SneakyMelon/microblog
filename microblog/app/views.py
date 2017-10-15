@@ -3,20 +3,20 @@
     Returns views as web pages back to the browser.
 """
 from flask import render_template, flash, redirect
-from flask_login import login_required #, current_user
-from app import APP
+#from flask_login import login_required #, current_user
+from app import app
 from options import opt
 from .forms import LoginForm
 
-@APP.route('/')
-@APP.route('/index')
+@app.route('/')
+@app.route('/index')
 def index():
     """/index or home routing.
     Initial landing space for all users who are visiting the application.
     """
     return render_template('index.html', options=opt())
 
-@APP.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     """
     /login routing. Provides an interface for users to login in to the application.
@@ -38,14 +38,14 @@ def login():
     return render_template('login.html',
                            options=opt(),
                            form=form,
-                           providers=APP.config['PROVIDERS'])
+                           providers=app.config['PROVIDERS'])
 
-@APP.route('/dashboard')
-@login_required
-def account():
-    """
-    /account dashboard for users.
+#@app.route('/dashboard')
+#@login_required
+#def account():
+    #"""
+    #/account dashboard for users.
 
-    :return: view account.html
-    """
-    return render_template("account.html")
+    #:return: view account.html
+    #"""
+    #return render_template("account.html")
