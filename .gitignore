@@ -18,4 +18,6 @@ __pycache__/
 .git
 env
 
-
+# Database
+db_repository/
+*.db
