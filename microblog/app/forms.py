@@ -1,5 +1,5 @@
 """
-Application forms used throughout the application.
+Forms used throughout the application.
 """
 
 from flask_wtf import Form
