@@ -35,6 +35,11 @@
               <span style="color: red;">{{ error }}</span>
             {% endfor %}
           </p>
+          <p>
+            |{% for pr in providers %}
+              <a href="javascript:set_openid('{{ pr.url }}', '{{ pr.name }}');">{{ pr.name }}</a> |
+            {% endfor %}
+          </p>
           <p>{{ form.remember_me }} Remember Me</p>
           <p><input type="submit" value="Sign In"></p>
         </form>
@@ -45,17 +50,16 @@
 <script defer type="text/javascript">
     function set_openid(id, provider)
     {
-
-      u = id.search("<username>");
-
-      if (u != -1){
-
-        user = promt("Enter your " + provider + "username to continue:")
-        id = id.substr(0, u) + user;
+      u = id.search("<username>")
+    
+      if (u !== -1){
+        user = prompt("Enter your " + provider + " username to continue:");
+          if (user){
+            $("form #openid")[0].value = id.substr(0, u) + user;
+          }
+      } else{
+        $("form #openid")[0].value = id;
       }
-
-      form = $("form #openid")[0]
-      form.value = id
     }
 </script>
 {% endblock %}
